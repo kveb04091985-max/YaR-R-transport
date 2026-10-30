@@ -578,6 +578,45 @@ dialog::backdrop{background:rgba(0,0,0,.86);backdrop-filter:blur(6px)}
 .tl4.in::after{left:0;margin-left:var(--tx,0px)}
 @media (max-width:600px){.stp.rv{transform:translateX(-50px) scale(.94)}.tl4::after{display:none}}
 @media (prefers-reduced-motion:reduce){.stp.rv{opacity:1!important;transform:none!important}.stp .no{transform:none!important}.tl4::after{display:none}}
+/* mobile: centered layout, vertical steps, readable reviews title */
+@media (max-width:700px){
+  section .wrap,footer .wrap,.hero-t,.facts .wrap{text-align:center}
+  .sh{justify-content:center}
+  .kick{justify-content:center;text-align:center;flex-direction:column;gap:10px}.kick::before{margin:0 auto}
+  .hero-cta{justify-content:center}.hero-cta>*{flex:1 1 100%;justify-content:center;text-align:center}
+  .wh,.wh2,.rv-top{flex-direction:column;align-items:center;gap:14px;text-align:center}
+  .intro,.lead,.ab-t,.ab-t p,.wh2 .intro,.pn,.plist .pd{margin-left:auto;margin-right:auto;text-align:center}
+  .big2,.big2 small{text-align:center;display:block}
+  .fc{text-align:center;padding-left:0!important;border-left:0!important}
+  .rsum{margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .rs2{display:flex;flex-direction:column;align-items:center}.stars,.aw{justify-content:center}
+  .bars{width:100%;text-align:left}
+  .plist{text-align:center}.plist .pr{text-align:left}.plist .tag{margin-left:auto;margin-right:auto}
+  .tabs{justify-content:flex-start}
+  .nh>div{text-align:center}.nh .pay{justify-content:center}
+  .ft{text-align:center}
+  .ct-big,#contacts h2,#contacts .sh{text-align:center}
+  .ct-g .ci{text-align:center}
+  .chn a{justify-content:center;text-align:center}
+  .ft4{text-align:center;justify-items:center}.ft4 img{margin:0 auto}.ft4 .mot{margin-left:auto;margin-right:auto}.cp2{text-align:center}
+  .gi,.cap{text-align:center}
+  .cx-l{text-align:center}
+  .rw{text-align:left}.dlg{text-align:left}
+  #reviews .d em{color:#fff;-webkit-text-stroke:0;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+}
+@media (max-width:600px){
+  .tl4{display:block;position:relative;padding:0;row-gap:0}
+  .tl4::before{display:block;left:4px;right:auto;top:0;bottom:0;width:1px;height:auto;transform:scaleY(0);transform-origin:top;background:#4a4a50}
+  .tl4.in::before{transform:scaleY(1)}
+  .tl4::after{display:block;top:0;left:0}
+  .tl4.in::after{margin-left:0;margin-top:var(--ty,0px)}
+  .stp{display:block;margin:0 0 18px 26px;padding:22px 18px;text-align:center;border:1px solid #2a2a2e;background:rgba(255,255,255,.03);transition:border-color .4s,background .4s}
+  .stp:last-child{margin-bottom:0}
+  .stp.act{border-color:var(--red);background:rgba(212,18,27,.1)}
+  .stp .no{margin:0 auto 14px;width:52px;height:52px}
+  .stp h3,.stp.act h3,.stp:hover h3{transform:none}
+  .stp.rv{transform:translateX(-40px) scale(.94)}
+}
 </style>
 </head>
 <body>
@@ -968,10 +1007,10 @@ addEventListener('scroll',chk,{passive:true});addEventListener('resize',chk);set
         if(!t0){t0=now;seen=0}
         const t=now-t0-START;
         if(t<0){return}
-        const L=tl.getBoundingClientRect().left,c=st.map(s=>{const b=s.querySelector('.no').getBoundingClientRect();return b.left+b.width/2-L});
-        const a=c[0],z=tl.getBoundingClientRect().width,c4=t%(TRAVEL+HOLD);
+        const v=innerWidth<=600,R=tl.getBoundingClientRect(),c=st.map(s=>{const b=s.querySelector('.no').getBoundingClientRect();return v?b.top+b.height/2-R.top:b.left+b.width/2-R.left});
+        const a=c[0],z=v?R.height:R.width,c4=t%(TRAVEL+HOLD);
         const p=Math.min(1,c4/TRAVEL),x=a+(z-a)*ease(p);
-        tl.style.setProperty('--tx',(x-5)+'px');tl.classList.add('run');
+        tl.style.setProperty(v?'--ty':'--tx',(x-5)+'px');tl.classList.add('run');
         st.forEach((s,k)=>s.classList.toggle('act',x>=c[k]-1));
         if(c4>=TRAVEL+HOLD-500)tl.classList.remove('run');
         if(c4<TRAVEL+HOLD-500&&!tl.classList.contains('run'))tl.classList.add('run');
